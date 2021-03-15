@@ -247,7 +247,12 @@ RCT_EXPORT_METHOD(presentEventEditingDialog:(NSDictionary *)options resolver:(RC
     NSDictionary *options = _eventOptions;
 
     event.title = [RCTConvert NSString:options[_title]];
-    event.addRecurrenceRule(EKRecurrenceRule.init(recurrenceWith: EKRecurrenceFrequency.weekly, interval: 1));
+
+    EKRecurrenceRule *recurrenceRule = [[EKRecurrenceRule alloc] initRecurrenceWithFrequency:EKRecurrenceFrequencyWeekly interval:1 end:NULL];
+
+    // Apply it to the event
+    [event addRecurrenceRule: recurrenceRule];
+
     event.location = options[_location] ? [RCTConvert NSString:options[_location]] : nil;
 
     if (options[_startDate]) {
