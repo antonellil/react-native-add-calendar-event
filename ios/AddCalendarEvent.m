@@ -250,8 +250,11 @@ RCT_EXPORT_METHOD(presentEventEditingDialog:(NSDictionary *)options resolver:(RC
 
     EKRecurrenceRule *recurrenceRule = [[EKRecurrenceRule alloc] initRecurrenceWithFrequency:EKRecurrenceFrequencyWeekly interval:1 end:NULL];
 
+    EKAlarm *alarm = [[EKAlarm alloc] init];
+
     // Apply it to the event
     [event addRecurrenceRule: recurrenceRule];
+    [event addAlarm: alarm];
 
     event.location = options[_location] ? [RCTConvert NSString:options[_location]] : nil;
 
